@@ -1,9 +1,4 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+# 关于
+## 这是一个高中生的个人博客，记录生活和搞机经验
 
-::github{repo="saicaca/fuwari"}
-
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+由 [Astro](https://astro.build/) 、[Fuwari](https://github.com/saicaca/fuwari) 、[github](https://github.com/YU-1021/fuwariblog) 、[cloudflare](https://dash.cloudflare.com/) 强力驱动
