@@ -1,0 +1,5 @@
+name = "fuwariblog"
+compatibility_date = "2026-02-16"
+
+[pages]
+build_output_dir = "dist"
