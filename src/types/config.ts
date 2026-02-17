@@ -34,6 +34,16 @@ export type SiteConfig = {
 		enable: boolean;
 		depth: 1 | 2 | 3;
 	};
+	background?: {
+		enable: boolean;
+		src: string;
+		position?: string;
+		size?: string;
+		repeat?: string;
+		attachment?: string;
+		opacity?: number;
+		blur?: number;
+	};
 
 	favicon: Favicon[];
 };
