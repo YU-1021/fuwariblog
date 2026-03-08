@@ -4,8 +4,10 @@ import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { getDefaultHue, getHue, setHue } from "@utils/setting-utils";
 
-interface Props {}
-const {}: Props = $props();
+interface Props {
+	[key: string]: unknown;
+}
+const _: Props = $props();
 
 let hue = $state(getHue());
 const defaultHue = getDefaultHue();

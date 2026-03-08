@@ -6,8 +6,10 @@ import { url } from "@utils/url-utils.ts";
 import { onMount } from "svelte";
 import type { SearchResult } from "@/global";
 
-interface Props {}
-const {}: Props = $props();
+interface Props {
+	[key: string]: unknown;
+}
+const _: Props = $props();
 
 let keywordDesktop = $state("");
 let keywordMobile = $state("");

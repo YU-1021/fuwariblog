@@ -26,11 +26,17 @@ interface Props {
 	sortedPosts?: Post[];
 }
 
-let { tags: tagsProp = [], categories: categoriesProp = [], sortedPosts = [] }: Props = $props();
+let {
+	tags: tagsProp = [],
+	categories: categoriesProp = [],
+	sortedPosts = [],
+}: Props = $props();
 
 const params = new URLSearchParams(window.location.search);
 let tags = params.has("tag") ? params.getAll("tag") : tagsProp;
-let categories = params.has("category") ? params.getAll("category") : categoriesProp;
+let categories = params.has("category")
+	? params.getAll("category")
+	: categoriesProp;
 const uncategorized = params.get("uncategorized");
 
 let groups: Group[] = $state([]);
