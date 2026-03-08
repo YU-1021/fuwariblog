@@ -5,21 +5,12 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getPostUrlBySlug } from "../utils/url-utils";
 
-export let tags: string[];
-export let categories: string[];
-export let sortedPosts: Post[] = [];
-
-const params = new URLSearchParams(window.location.search);
-tags = params.has("tag") ? params.getAll("tag") : [];
-categories = params.has("category") ? params.getAll("category") : [];
-const uncategorized = params.get("uncategorized");
-
 interface Post {
 	slug: string;
 	data: {
 		title: string;
 		tags: string[];
-		category?: string;
+		category: string | null;
 		published: Date;
 	};
 }
@@ -29,7 +20,20 @@ interface Group {
 	posts: Post[];
 }
 
-let groups: Group[] = [];
+interface Props {
+	tags?: string[];
+	categories?: string[];
+	sortedPosts?: Post[];
+}
+
+let { tags: tagsProp = [], categories: categoriesProp = [], sortedPosts = [] }: Props = $props();
+
+const params = new URLSearchParams(window.location.search);
+let tags = params.has("tag") ? params.getAll("tag") : tagsProp;
+let categories = params.has("category") ? params.getAll("category") : categoriesProp;
+const uncategorized = params.get("uncategorized");
+
+let groups: Group[] = $state([]);
 
 function formatDate(date: Date) {
 	const month = (date.getMonth() + 1).toString().padStart(2, "0");

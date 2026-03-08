@@ -12,8 +12,7 @@ const config = profileConfig;
         <div class="absolute transition pointer-events-none group-hover:bg-black/30 group-active:bg-black/50
         w-full h-full z-50 flex items-center justify-center">
             <img src="/icon/github.svg"
-                  class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white w-20 h-20">
-            </img>
+                  class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white w-20 h-20" />
         </div>
         <ImageWrapper src={config.avatar || ""} alt="Profile Image of the Author" class="mx-auto lg:w-full h-full lg:mt-0 "></ImageWrapper>
     </a>
@@ -24,12 +23,12 @@ const config = profileConfig;
         <div class="flex flex-wrap gap-2 justify-center mb-1">
             {config.links.length > 1 && config.links.map(item =>
                     <a rel="me" aria-label={item.name} href={item.url} target="_blank" class="btn-regular rounded-lg h-10 w-10 active:scale-90 flex items-center justify-center">
-                        <img src={`/icon/${item.icon}.svg`} class="w-6 h-6"></img>
+                        <img src={`/icon/${item.icon}.svg`} class="w-6 h-6" />
                     </a>
             )}
             {config.links.length == 1 && <a rel="me" aria-label={config.links[0].name} href={config.links[0].url} target="_blank"
                                             class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95 flex items-center">
-                <img src={`/icon/${config.links[0].icon}.svg`} class="w-6 h-6"></img>
+                <img src={`/icon/${config.links[0].icon}.svg`} class="w-6 h-6" />
                 {config.links[0].name}
             </a>}
         </div>

@@ -6,12 +6,15 @@ import { url } from "@utils/url-utils.ts";
 import { onMount } from "svelte";
 import type { SearchResult } from "@/global";
 
-let keywordDesktop = "";
-let keywordMobile = "";
-let result: SearchResult[] = [];
-let isSearching = false;
-let pagefindLoaded = false;
-let initialized = false;
+interface Props {}
+const {}: Props = $props();
+
+let keywordDesktop = $state("");
+let keywordMobile = $state("");
+let result: SearchResult[] = $state([]);
+let isSearching = $state(false);
+let pagefindLoaded = $state(false);
+let initialized = $state(false);
 
 const fakeResult: SearchResult[] = [
 	{
@@ -125,17 +128,21 @@ onMount(() => {
 	}
 });
 
-$: if (initialized && keywordDesktop) {
-	(async () => {
-		await search(keywordDesktop, true);
-	})();
-}
+$effect(() => {
+	if (initialized && keywordDesktop) {
+		(async () => {
+			await search(keywordDesktop, true);
+		})();
+	}
+});
 
-$: if (initialized && keywordMobile) {
-	(async () => {
-		await search(keywordMobile, false);
-	})();
-}
+$effect(() => {
+	if (initialized && keywordMobile) {
+		(async () => {
+			await search(keywordMobile, false);
+		})();
+	}
+});
 </script>
 
 <!-- search bar for desktop view -->
