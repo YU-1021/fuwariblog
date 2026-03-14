@@ -3,7 +3,7 @@ title: cloudflare workers ip优选
 published: 2026-02-17
 description: "详细演示cloudflare workers如何优选域名，适合零基础用户一键跟做。"
 image: "./cover.jpg"
-tags: ["cloudflare", “workers”，“IP优选”，“建站”]
+tags: ["cloudflare", “workers”,“IP优选”,“建站”]
 category: 教程
 draft: false
 ---
