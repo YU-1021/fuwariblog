@@ -73,23 +73,23 @@ export const profileConfig: ProfileConfig = {
 	bio: "一个建立于 21 世纪的小站，存活于互联网的边缘",
 	links: [
 		{
-			name: "QQ",
-			icon: "qq", // Local icon
-			url: "http://wpa.qq.com/msgrd?v=3&uin=2848476289&site=qq&menu=yes",
+			name: "Email",
+			icon: "email",
+			url: "mailto:yufun21@qq.com",
 		},
 		{
 			name: "Telegram",
-			icon: "telegram", // Local icon
+			icon: "telegram",
 			url: "https://t.me/+jcYrHcADo985MDI1",
 		},
 		{
-			name: "Bilibli",
-			icon: "bilibili", // Local icon
+			name: "Bilibili",
+			icon: "bilibili",
 			url: "https://space.bilibili.com/1075986758",
 		},
 		{
 			name: "GitHub",
-			icon: "github", // Local icon
+			icon: "github",
 			url: "https://github.com/YU-1021",
 		},
 	],
