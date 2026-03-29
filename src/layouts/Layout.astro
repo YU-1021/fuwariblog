@@ -4,6 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
+import ReadingProgress from "@components/control/ReadingProgress.astro";
 import { profileConfig, siteConfig } from "@/config";
 import {
 	AUTO_MODE,
@@ -175,6 +176,7 @@ if (bgConfig?.enable && bgConfig.src) {
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
 		  data-overlayscrollbars-initialize
 	>
+		<ReadingProgress />
 		{bgConfig?.enable && (
 			<div id="background-layer" class="fixed inset-0 -z-10 overflow-hidden">
 				<img 
