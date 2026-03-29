@@ -2,8 +2,28 @@
 import { profileConfig } from "../../config";
 import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
+import { getCollection } from "astro:content";
 
 const config = profileConfig;
+
+const allBlogPosts = await getCollection("posts", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const postCount = allBlogPosts.length;
+
+let totalWords = 0;
+for (const post of allBlogPosts) {
+	const { remarkPluginFrontmatter } = await post.render();
+	totalWords += remarkPluginFrontmatter.words || 0;
+}
+
+function formatWordCount(count: number): string {
+	if (count >= 10000) {
+		return (count / 10000).toFixed(1) + "w";
+	}
+	return count.toString();
+}
 ---
 <div class="card-base p-3">
     <a aria-label="Go to About Page" href={url('/about/')}
@@ -31,6 +51,16 @@ const config = profileConfig;
                 <img src={`/icon/${config.links[0].icon}.svg`} class="w-6 h-6" />
                 {config.links[0].name}
             </a>}
+        </div>
+        <div class="flex justify-center gap-6 text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+            <div class="flex items-center gap-1">
+                <span class="font-bold text-neutral-700 dark:text-neutral-200">{postCount}</span>
+                <span>篇文章</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <span class="font-bold text-neutral-700 dark:text-neutral-200">{formatWordCount(totalWords)}</span>
+                <span>字</span>
+            </div>
         </div>
     </div>
 </div>
