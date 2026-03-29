@@ -7,6 +7,12 @@ import {
 import { expressiveCodeConfig } from "@/config";
 import type { LIGHT_DARK_MODE } from "@/types/config";
 
+declare global {
+	interface Window {
+		bgAlreadyLoaded?: boolean;
+	}
+}
+
 export function getDefaultHue(): number {
 	const fallback = "250";
 	const configCarrier = document.getElementById("config-carrier");
@@ -105,13 +111,13 @@ export function setRandomBg(enabled: boolean): void {
 	if (bgImg) {
 		if (enabled) {
 			bgImg.src = `https://api.sretna.cn/api/pc.php?t=${Date.now()}`;
-			(window as any).bgAlreadyLoaded = true;
+			window.bgAlreadyLoaded = true;
 		} else {
 			const defaultBgSrc = getDefaultBgSrc();
 			if (defaultBgSrc) {
 				bgImg.src = defaultBgSrc;
 			}
-			(window as any).bgAlreadyLoaded = false;
+			window.bgAlreadyLoaded = false;
 		}
 	}
 }
@@ -122,6 +128,6 @@ export function refreshRandomBg(): void {
 	) as HTMLImageElement | null;
 	if (bgImg && getRandomBg()) {
 		bgImg.src = `https://api.sretna.cn/api/pc.php?t=${Date.now()}`;
-		(window as any).bgAlreadyLoaded = true;
+		window.bgAlreadyLoaded = true;
 	}
 }

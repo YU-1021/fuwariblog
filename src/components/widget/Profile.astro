@@ -1,8 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 import { profileConfig } from "../../config";
 import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
-import { getCollection } from "astro:content";
 
 const config = profileConfig;
 
@@ -20,7 +20,7 @@ for (const post of allBlogPosts) {
 
 function formatWordCount(count: number): string {
 	if (count >= 10000) {
-		return (count / 10000).toFixed(1) + "w";
+		return `${(count / 10000).toFixed(1)}w`;
 	}
 	return count.toString();
 }
