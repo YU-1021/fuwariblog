@@ -42,9 +42,9 @@ const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
 ---
-<a href={url} class="block rounded-[var(--radius-large)]">
-<div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative group cursor-pointer", className]} style={style}>
-    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
+<div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:bg-[var(--btn-card-bg-hover)]", className]} style={style}>
+    <a href={url} class="absolute inset-0 z-10" aria-label={title}></a>
+    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative z-20 pointer-events-none", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
         <div class="transition w-full block font-bold mb-3 text-3xl text-90
         group-hover:text-[var(--primary)] dark:group-hover:text-[var(--primary)]
         group-active:text-[var(--title-active)] dark:group-active:text-[var(--title-active)]
@@ -104,7 +104,6 @@ const { remarkPluginFrontmatter } = await entry.render();
         </div>
     }
 </div>
-</a>
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 
 <style define:vars={{coverWidth}}>
