@@ -1,7 +1,10 @@
 ---
 
 import { siteConfig } from "../config";
+
+const defaultBlur = siteConfig.background?.blur ?? 5;
+const defaultBgSrc = siteConfig.background?.src ?? "";
 ---
 
-<div id="config-carrier" data-hue={siteConfig.themeColor.hue}>
+<div id="config-carrier" data-hue={siteConfig.themeColor.hue} data-blur={defaultBlur} data-bg-src={defaultBgSrc}>
 </div>

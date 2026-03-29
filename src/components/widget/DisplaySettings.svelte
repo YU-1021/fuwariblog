@@ -2,23 +2,65 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
-import { getDefaultHue, getHue, setHue } from "@utils/setting-utils";
+import {
+	getBlur,
+	getDefaultBlur,
+	getDefaultHue,
+	getHue,
+	getRandomBg,
+	refreshRandomBg,
+	setBlur,
+	setHue,
+	setRandomBg,
+} from "@utils/setting-utils";
+import { onMount } from "svelte";
 
 interface Props {
 	[key: string]: unknown;
 }
 const _: Props = $props();
 
-let hue = $state(getHue());
-const defaultHue = getDefaultHue();
+let hue = $state(0);
+let defaultHue = $state(0);
+
+let blur = $state(0);
+let defaultBlur = $state(0);
+
+let randomBgEnabled = $state(false);
+
+onMount(() => {
+	hue = getHue();
+	defaultHue = getDefaultHue();
+	blur = getBlur();
+	defaultBlur = getDefaultBlur();
+	randomBgEnabled = getRandomBg();
+});
 
 function resetHue() {
 	hue = getDefaultHue();
 }
 
+function resetBlur() {
+	blur = getDefaultBlur();
+}
+
+function toggleRandomBg() {
+	randomBgEnabled = !randomBgEnabled;
+	setRandomBg(randomBgEnabled);
+	if (randomBgEnabled) {
+		refreshRandomBg();
+	}
+}
+
 $effect(() => {
 	if (hue || hue === 0) {
 		setHue(hue);
+	}
+});
+
+$effect(() => {
+	if (blur || blur === 0) {
+		setBlur(blur);
 	}
 });
 </script>
@@ -47,6 +89,53 @@ $effect(() => {
     <div class="w-full h-6 px-1 bg-[oklch(0.80_0.10_0)] dark:bg-[oklch(0.70_0.10_0)] rounded select-none">
         <input aria-label={i18n(I18nKey.themeColor)} type="range" min="0" max="360" bind:value={hue}
                class="slider" id="colorSlider" step="5" style="width: 100%">
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 mt-4 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            {i18n(I18nKey.backgroundBlur)}
+            <button aria-label="Reset to Default" class="btn-regular w-7 h-7 rounded-md  active:scale-90 will-change-transform"
+                    class:opacity-0={blur === defaultBlur} class:pointer-events-none={blur === defaultBlur} on:click={resetBlur}>
+                <div class="text-[var(--btn-content)]">
+                    <Icon icon="fa6-solid:arrow-rotate-left" class="text-[0.875rem]"></Icon>
+                </div>
+            </button>
+        </div>
+        <div class="flex gap-1">
+            <div id="blurValue" class="transition bg-[var(--btn-regular-bg)] w-10 h-7 rounded-md flex justify-center
+            font-bold text-sm items-center text-[var(--btn-content)]">
+                {blur}
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-6 px-1 bg-[var(--btn-regular-bg)] rounded select-none">
+        <input aria-label={i18n(I18nKey.backgroundBlur)} type="range" min="0" max="20" bind:value={blur}
+               class="slider blur-slider" id="blurSlider" step="1" style="width: 100%">
+    </div>
+
+    <div class="flex flex-row gap-2 mb-3 mt-4 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            {i18n(I18nKey.randomBackground)}
+        </div>
+        <div class="flex gap-1">
+            <button on:click={toggleRandomBg}
+                    class="relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2"
+                    class:bg-[var(--primary)]={randomBgEnabled}
+                    class:bg-neutral-300={!randomBgEnabled}
+                    class:dark:bg-neutral-600={!randomBgEnabled}
+                    aria-label={i18n(I18nKey.randomBackground)}
+                    aria-pressed={randomBgEnabled}>
+                <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300"
+                      class:translate-x-6={randomBgEnabled}
+                      class:translate-x-0={!randomBgEnabled}></span>
+            </button>
+        </div>
     </div>
 </div>
 

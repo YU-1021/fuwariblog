@@ -36,7 +36,7 @@ export const siteConfig: SiteConfig = {
 		size: "cover", // 覆盖全屏
 		repeat: "no-repeat", // 不重复
 		attachment: "fixed", // 固定背景，不随滚动条滚动
-		opacity: 0.5, // 背景透明度（建议 0.7-0.9 之间，防止干扰文字阅读）
+		opacity: 0.9, // 背景透明度（建议 0.7-0.9 之间，防止干扰文字阅读）
 		blur: 5, // 背景模糊度（单位：px，建议 0-20 之间）
 	},
 	favicon: [

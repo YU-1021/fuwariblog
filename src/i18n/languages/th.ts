@@ -25,6 +25,8 @@ export const th: Translation = {
 	[Key.postsCount]: "โพสต์",
 
 	[Key.themeColor]: "สีของธีม",
+	[Key.backgroundBlur]: "พื้นหลังเบลอ",
+	[Key.randomBackground]: "พื้นหลังสุ่ม",
 
 	[Key.lightMode]: "สว่าง",
 	[Key.darkMode]: "มืด",

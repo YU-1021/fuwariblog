@@ -32,12 +32,9 @@ let {
 	sortedPosts = [],
 }: Props = $props();
 
-const params = new URLSearchParams(window.location.search);
-let tags = params.has("tag") ? params.getAll("tag") : tagsProp;
-let categories = params.has("category")
-	? params.getAll("category")
-	: categoriesProp;
-const uncategorized = params.get("uncategorized");
+let tags: string[] = $state([]);
+let categories: string[] = $state([]);
+let uncategorized: string | null = $state(null);
 
 let groups: Group[] = $state([]);
 
@@ -52,6 +49,13 @@ function formatTag(tagList: string[]) {
 }
 
 onMount(async () => {
+	const params = new URLSearchParams(window.location.search);
+	tags = params.has("tag") ? params.getAll("tag") : tagsProp;
+	categories = params.has("category")
+		? params.getAll("category")
+		: categoriesProp;
+	uncategorized = params.get("uncategorized");
+
 	let filteredPosts: Post[] = sortedPosts;
 
 	if (tags.length > 0) {

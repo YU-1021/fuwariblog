@@ -72,6 +72,8 @@ const bannerOffset =
 	bannerOffsetByPosition[siteConfig.banner.position || "center"];
 
 const bgConfig = siteConfig.background;
+const configBlur = bgConfig?.blur ?? 5;
+const randomBgApiUrl = "https://api.sretna.cn/api/pc.php";
 
 let bgImageUrl = "";
 if (bgConfig?.enable && bgConfig.src) {
@@ -121,7 +123,7 @@ if (bgConfig?.enable && bgConfig.src) {
 		))}
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
-		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
+		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue, configBlur}}>
 			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
 			switch (theme) {
@@ -143,6 +145,17 @@ if (bgConfig?.enable && bgConfig.src) {
 			const hue = localStorage.getItem('hue') || configHue;
 			document.documentElement.style.setProperty('--hue', hue);
 
+			// Load the blur from local storage
+			const blur = localStorage.getItem('blur') || configBlur;
+			const bgImg = document.getElementById('background-image');
+			if (bgImg) {
+				if (blur == 0 || blur === '0') {
+					bgImg.style.removeProperty('filter');
+				} else {
+					bgImg.style.filter = `blur(${blur}px)`;
+				}
+			}
+
 			// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
 			let offset = Math.floor(window.innerHeight * (BANNER_HEIGHT_EXTEND / 100));
 			offset = offset - offset % 4;
@@ -163,19 +176,30 @@ if (bgConfig?.enable && bgConfig.src) {
 		  data-overlayscrollbars-initialize
 	>
 		{bgConfig?.enable && (
-			<div
-				class="fixed inset-0 -z-10 transition-opacity duration-300"
-				style={{
-					backgroundImage: `url(${bgImageUrl})`,
-					backgroundPosition: bgConfig.position || 'center',
-					backgroundSize: bgConfig.size || 'cover',
-					backgroundRepeat: bgConfig.repeat || 'no-repeat',
-					backgroundAttachment: bgConfig.attachment || 'fixed',
-					opacity: bgConfig.opacity || 1,
-					filter: bgConfig.blur ? `blur(${bgConfig.blur}px)` : undefined
-				}}
-			></div>
+			<div id="background-layer" class="fixed inset-0 -z-10 overflow-hidden">
+				<img 
+					id="background-image"
+					src={bgImageUrl}
+					alt=""
+					class="w-full h-full object-cover"
+					style={{
+						objectPosition: bgConfig.position || 'center',
+						opacity: bgConfig.opacity || 1,
+					}}
+				/>
+			</div>
 		)}
+		<script is:inline define:vars={{randomBgApiUrl}}>
+			const randomBg = localStorage.getItem('randomBg');
+			const useRandomBg = randomBg === null ? true : randomBg === 'true';
+			if (useRandomBg && !window.bgAlreadyLoaded) {
+				const bgImg = document.getElementById('background-image');
+				if (bgImg) {
+					bgImg.src = `${randomBgApiUrl}?t=${Date.now()}`;
+					window.bgAlreadyLoaded = true;
+				}
+			}
+		</script>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
 
@@ -227,7 +251,7 @@ import {
 	// SizeObserverPlugin,
 	// ClickScrollPlugin
 } from 'overlayscrollbars';
-import {getHue, getStoredTheme, setHue, setTheme} from "../utils/setting-utils";
+import {getHue, getStoredTheme, setHue, setTheme, getBlur, setBlur} from "../utils/setting-utils";
 import {pathsEqual, url} from "../utils/url-utils";
 import {
 	BANNER_HEIGHT,
@@ -311,6 +335,10 @@ function loadHue() {
 	setHue(getHue())
 }
 
+function loadBlur() {
+	setBlur(getBlur())
+}
+
 function initCustomScrollbar() {
 	const bodyElement = document.querySelector('body');
 	if (!bodyElement) return;
@@ -392,6 +420,7 @@ function init() {
 	// disableAnimation()()		// TODO
 	loadTheme();
 	loadHue();
+	loadBlur();
 	initCustomScrollbar();
 	showBanner();
 }
