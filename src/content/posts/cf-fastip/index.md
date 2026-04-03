@@ -1,6 +1,6 @@
 ---
 title: 试试Cloudflare IP优选！让Cloudflare在国内再也不是减速器！
-published: 2026-04-3
+published: 2026-04-03
 description: "使用SaaS、Worker以及各种奇技淫巧来让你的网站解析的IP进行分流优选，提高网站可用性和速度"
 image: "./cover.png"
 tags: ["cloudflare","IP优选"]
