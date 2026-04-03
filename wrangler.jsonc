@@ -8,7 +8,7 @@
   // If you instead deploy via Cloudflare Pages (recommended), use the Pages
   // dashboard Git integration (Build: pnpm build, Output: dist) and you can
   // remove the custom deploy command.
-  "name": "fuwari",
+  "name": "fuwariblog",
   "compatibility_date": "2026-2-16",
   "assets": {
     "directory": "./dist"
