@@ -40,7 +40,9 @@ const hasCover = image !== undefined && image !== null && image !== "";
 
 const coverWidth = "28%";
 
-const { remarkPluginFrontmatter } = await entry.render();
+const words = entry.data.words || 0;
+const minutes = entry.data.minutes || 1;
+const excerpt = entry.data.excerpt || description;
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative group/card cursor-pointer", className]} style={style}>
     <a href={url} class="absolute inset-0 z-10" aria-label={title}></a>
@@ -61,17 +63,17 @@ const { remarkPluginFrontmatter } = await entry.render();
 
         <!-- description -->
         <div class:list={["transition text-75 mb-3.5 pr-4", {"line-clamp-2 md:line-clamp-1": !description}]}>
-            { description || remarkPluginFrontmatter.excerpt }
+            { description || excerpt }
         </div>
 
         <!-- word count and read time  -->
         <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
             <div>
-                {remarkPluginFrontmatter.words} {" " + i18n(remarkPluginFrontmatter.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
+                {words} {" " + i18n(words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
             </div>
             <div>|</div>
             <div>
-                {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
+                {minutes} {" " + i18n(minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
             </div>
         </div>
 

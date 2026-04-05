@@ -12,11 +12,10 @@ const allBlogPosts = await getCollection("posts", ({ data }) => {
 
 const postCount = allBlogPosts.length;
 
-let totalWords = 0;
-for (const post of allBlogPosts) {
-	const { remarkPluginFrontmatter } = await post.render();
-	totalWords += remarkPluginFrontmatter.words || 0;
-}
+const totalWords = allBlogPosts.reduce(
+	(sum, post) => sum + (post.data.words || 0),
+	0,
+);
 
 function formatWordCount(count: number): string {
 	if (count >= 10000) {
