@@ -1,0 +1,40 @@
+---
+import type { GiscusConfig } from "@/types/config";
+
+interface Props {
+	giscus: GiscusConfig;
+}
+
+const { giscus } = Astro.props;
+---
+
+<div class="giscus-container mt-6">
+	<script
+		src="https://giscus.app/client.js"
+		data-repo={giscus.repo}
+		data-repo-id={giscus.repoId}
+		data-category={giscus.category}
+		data-category-id={giscus.categoryId}
+		data-mapping={giscus.mapping || "pathname"}
+		data-strict={giscus.strict || "0"}
+		data-reactions-enabled={giscus.reactionsEnabled || "1"}
+		data-emit-metadata={giscus.emitMetadata || "0"}
+		data-input-position={giscus.inputPosition || "top"}
+		data-theme={giscus.theme || "preferred_color_scheme"}
+		data-lang={giscus.lang || "zh-CN"}
+		crossorigin="anonymous"
+		async
+	></script>
+</div>
+
+<style>
+	.giscus-container {
+		@apply rounded-xl overflow-hidden;
+	}
+	.giscus-container :global(.giscus) {
+		@apply max-w-full;
+	}
+	.giscus-container :global(.giscus-frame) {
+		@apply w-full;
+	}
+</style>
