@@ -8,8 +8,7 @@ interface Props {
 const { giscus } = Astro.props;
 ---
 
-<div class="giscus-container card-base px-6 md:px-9 py-6 rounded-xl mt-6">
-	<div class="giscus"></div>
+<div class="giscus-container mt-6">
 	<script
 		src="https://giscus.app/client.js"
 		data-repo={giscus.repo}
@@ -31,6 +30,9 @@ const { giscus } = Astro.props;
 <style>
 	.giscus-container {
 		@apply rounded-xl overflow-hidden;
+	}
+	.giscus-container :global(.giscus) {
+		@apply max-w-full;
 	}
 	.giscus-container :global(.giscus-frame) {
 		@apply w-full;
