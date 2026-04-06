@@ -110,23 +110,3 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
-
-export type GiscusConfig = {
-	enable: boolean;
-	repo: string;
-	repoId: string;
-	category: string;
-	categoryId: string;
-	mapping?: "pathname" | "url" | "title" | "og:title" | "number" | "specific";
-	strict?: "0" | "1";
-	reactionsEnabled?: "0" | "1";
-	emitMetadata?: "0" | "1";
-	inputPosition?: "top" | "bottom";
-	theme?: string;
-	lang?: string;
-};
-
-export type CommentConfig = {
-	enable: boolean;
-	giscus?: GiscusConfig;
-};

@@ -1,5 +1,4 @@
 import type {
-	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -106,22 +105,4 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
-};
-
-export const commentConfig: CommentConfig = {
-	enable: true,
-	giscus: {
-		enable: true,
-		repo: "YU-1021/fuwariblog",
-		repoId: "R_kgDORRYYAQ",
-		category: "Announcements",
-		categoryId: "DIC_kwDORRYYAc4C6JHG",
-		mapping: "pathname",
-		strict: "0",
-		reactionsEnabled: "1",
-		emitMetadata: "0",
-		inputPosition: "top",
-		theme: "preferred_color_scheme",
-		lang: "zh-CN",
-	},
 };
